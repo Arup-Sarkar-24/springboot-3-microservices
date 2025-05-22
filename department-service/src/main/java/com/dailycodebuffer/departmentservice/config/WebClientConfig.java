@@ -28,7 +28,10 @@ public class WebClientConfig {
     public EmployeeClient employeeClient() {
         HttpServiceProxyFactory httpServiceProxyFactory
                 = HttpServiceProxyFactory
-                .builder(WebClientAdapter.forClient(employeeWebClient()))
+                //.builder(WebClientAdapter.forClient(employeeWebClient()))
+                //I see error for boot version 3.4.0+ , Java 21, Spring Framework 6.1+
+                //My solution
+                .builderFor(WebClientAdapter.create(employeeWebClient()))
                 .build();
         return httpServiceProxyFactory.createClient(EmployeeClient.class);
     }
